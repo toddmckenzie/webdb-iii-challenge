@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "webd-challenge",
   "main": "index.js",
-  "repository": "https://github.com/toddmckenzie/webdb-iii-challenge.git)",
   "author": "Todd\t",
   "license": "n",
   "private": false,
