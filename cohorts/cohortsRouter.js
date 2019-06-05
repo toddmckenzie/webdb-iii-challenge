@@ -1,45 +1,74 @@
 const knex = require('knex');
 const router = require('express').Router();
 
-const knexConfig = requires('./knexfile.js');
+const knexConfig = require('../knexfile.js');
 
 const db = knex(knexConfig.development);
 
 
-server.get('/', (req, res) {
+router.get('/', (req, res) => {
     db('/cohorts')
-        .then()
-        .catch()
+        .then(result => {
+            res.json(result)
+        })
+        .catch(error => {
+            res.status(500).json({ message: 'cohorts not found'})
+        })
 })
 
-server.get('/:id', (req, res){
+router.get('/:id', (req, res) => {
     db('/cohorts')
         .where({ id: req.params.id })
         .first()
-        .then()
+        .then(result => {
+            res.json({ message: 'cohort not found.'})
+        })
         .catch()
 })
 
-server.post('/', (req, res) {
-    db('/cohorts')
-    .insert(req.body, 'id')
-    .then()
-    .catch()
+router.get('/id:/students', (req, res) => {
+    db('cohorts')
+    .where({ id: req.params.id })
+    .then(result => {
+        res.json(result)
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Internal Server Error'})
+    })
 })
 
-server.put('/:id', (req, res) {
+router.post('/', (req, res) => {
+    db('/cohorts')
+    .insert(req.body, 'id')
+    .then(result => {
+        res.status(201).json(result)
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Internal server error'})
+    })
+})
+
+router.put('/:id', (req, res) => {
     db('/cohorts')
     .where({ id: req.params.id })
     .update(req.body)
-    .then()
-    .catch()
+    .then(result => {
+        res.json(result)
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'internal server error'})
+    })
 })
 
-server.delete('/:id', (req, res) {
+router.delete('/:id', (req, res) => {
     db('/cohorts')
     .where({ id: req.params.id })
     .del()
-    .then()
-    .catch()
+    .then(count => {
+        res.json(count)
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Internal server error'})
+    })
 })
 module.exports = router;
