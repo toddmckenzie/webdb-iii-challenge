@@ -11,7 +11,8 @@ exports.up = function(knex, Promise) {
             .inTable('cohorts')
             .onDelete('CASCADE')
             .onUpdate('CASCADE');
-};
+    })
+}
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists('students')
