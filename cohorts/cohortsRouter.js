@@ -42,7 +42,7 @@ router.get('/:id/students', (req, res) => {
         res.status(500).json({ message: 'Internal Server Error'})
     })
 })
-
+/*
 router.get('/students', (req, res) => {
     db('student')
     .then(result => {
@@ -53,7 +53,7 @@ router.get('/students', (req, res) => {
         res.status(500).json({ message: 'Internal Server Error'})
     })
 })
-
+*/
 //working
 router.post('/', (req, res) => {
     db('cohort')
