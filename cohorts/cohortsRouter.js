@@ -28,9 +28,9 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.get('/id:/students', (req, res) => {
+router.get('/:id/students', (req, res) => {
     db('student')
-    .where({ id: req.params.id })
+    .where({ cohorts_id: req.params.id })
     .then(result => {
         res.json(result)
     })
