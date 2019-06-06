@@ -5,7 +5,7 @@ const knexConfig = require('../knexfile.js');
 
 const db = knex(knexConfig.development);
 
-
+//working
 router.get('/', (req, res) => {
     db('cohort')
         .then(result => {
@@ -15,15 +15,17 @@ router.get('/', (req, res) => {
             res.status(500).json({ message: 'cohorts not found'})
         })
 })
-
+//working
 router.get('/:id', (req, res) => {
     db('cohort')
         .where({ id: req.params.id })
         .first()
         .then(result => {
+            res.json(result)
+        })
+        .catch(error => {
             res.json({ message: 'cohort not found.'})
         })
-        .catch()
 })
 
 router.get('/id:/students', (req, res) => {
@@ -37,6 +39,17 @@ router.get('/id:/students', (req, res) => {
     })
 })
 
+router.get('/students', (req, res) => {
+    db('student')
+    .then(result => {
+        res.json(result)
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Internal Server Error'})
+    })
+})
+
+//working
 router.post('/', (req, res) => {
     db('cohort')
     .insert(req.body, 'id')
@@ -47,25 +60,35 @@ router.post('/', (req, res) => {
         res.status(500).json({ message: 'Internal server error'})
     })
 })
-
+//working
 router.put('/:id', (req, res) => {
     db('cohort')
     .where({ id: req.params.id })
     .update(req.body)
     .then(result => {
-        res.json(result)
+        if (result > 0){
+            res.json(result)
+        } else {
+            res.status(404).json({ messgae: 'Cohort Not Found'})
+        }
+        
     })
     .catch(error => {
         res.status(500).json({ message: 'internal server error'})
     })
 })
-
+//working
 router.delete('/:id', (req, res) => {
     db('cohort')
     .where({ id: req.params.id })
     .del()
     .then(count => {
-        res.json(count)
+        if (count > 0){
+           res.json(count) 
+        } else {
+            res.status(404).json({ message: 'Cohort Not Found'})
+        }
+        
     })
     .catch(error => {
         res.status(500).json({ message: 'Internal server error'})
