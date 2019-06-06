@@ -27,12 +27,16 @@ router.get('/:id', (req, res) => {
             res.json({ message: 'cohort not found.'})
         })
 })
-
+//working
 router.get('/:id/students', (req, res) => {
     db('student')
     .where({ cohorts_id: req.params.id })
     .then(result => {
-        res.json(result)
+        if (result.length === 0) {
+            res.status(404).json({ message: 'cohort not found'})
+       } else {
+           res.json(result)
+       }
     })
     .catch(error => {
         res.status(500).json({ message: 'Internal Server Error'})
@@ -42,7 +46,8 @@ router.get('/:id/students', (req, res) => {
 router.get('/students', (req, res) => {
     db('student')
     .then(result => {
-        res.json(result)
+       res.status(200).json({ message: 'Internal Server Error'})
+       
     })
     .catch(error => {
         res.status(500).json({ message: 'Internal Server Error'})
