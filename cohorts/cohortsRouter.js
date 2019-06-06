@@ -7,7 +7,7 @@ const db = knex(knexConfig.development);
 
 
 router.get('/', (req, res) => {
-    db('/cohorts')
+    db('cohort')
         .then(result => {
             res.json(result)
         })
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    db('/cohorts')
+    db('cohort')
         .where({ id: req.params.id })
         .first()
         .then(result => {
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/id:/students', (req, res) => {
-    db('cohorts')
+    db('student')
     .where({ id: req.params.id })
     .then(result => {
         res.json(result)
@@ -38,7 +38,7 @@ router.get('/id:/students', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    db('/cohorts')
+    db('cohort')
     .insert(req.body, 'id')
     .then(result => {
         res.status(201).json(result)
@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-    db('/cohorts')
+    db('cohort')
     .where({ id: req.params.id })
     .update(req.body)
     .then(result => {
@@ -61,7 +61,7 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    db('/cohorts')
+    db('cohort')
     .where({ id: req.params.id })
     .del()
     .then(count => {

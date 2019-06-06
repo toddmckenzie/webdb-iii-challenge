@@ -10,7 +10,7 @@ server.use(helmet());
 
 const cohortsRouter = require('./cohorts/cohortsRouter')
 
-server.use('./api/cohorts', cohortsRouter)
+server.use('/api/cohorts', cohortsRouter)
 
 
 module.exports = server;
